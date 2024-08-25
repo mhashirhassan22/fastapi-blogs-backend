@@ -1,0 +1,48 @@
+# Python bytecode and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+.cache
+htmlcov
+
+# Virtual environment directories
+.venv/
+venv/
+
+# Poetry specific
+poetry.lock
+
+# Package directories
+build/
+dist/
+*.egg-info/
+
+# Docker files and volumes
+*.env
+.env.local
+.env.test
+.env.production
+
+# PostgreSQL data directory (if used)
+postgres_data/
+pgdata/
+
+# IDE-specific directories and files
+.idea/
+.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Unit test / coverage reports
+.pytest_cache/
+.mypy_cache
+.coverage
+coverage.xml
+*.cover
+
+# Alembic migrations
+alembic/versions/*.pyc
+*.pyc

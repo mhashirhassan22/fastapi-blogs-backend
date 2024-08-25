@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "blogs-backend"
+version = "0.1.0"
+description = "FastAPI backend for blogs app"
+authors = ["mhashirhassan22 <mhashirhassan22@gmail.com>"]
+packages = [{ include = "app" }]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+fastapi = "^0.112.2"
+uvicorn = "^0.30.6"
+psycopg2-binary = "^2.9.9"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.2"
+alembic = "^1.13.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+blogs-backend = "app.main:app"
