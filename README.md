@@ -16,7 +16,7 @@ Make sure you have the following installed:
 
 1. **Clone the repository**:
 
-   ```bash
+   ```
    git clone https://github.com/mhashirhassan22/fastapi-blogs-backend.git
    cd blogs-backend
    ```
@@ -24,12 +24,19 @@ Make sure you have the following installed:
 2. **Set up the Python environment**:
 
 Install dependencies using Poetry:
-    ```bash
+    ```
     poetry install
     ```
-3. **Build and run the Docker containers:**:
+    
+3. **Run the Application as a Package:**:
 Build and start the Docker containers:
-    ```bash
+    ```poetry run blogs-backend
+    ```
+P.s. Running app as package will automatically create database if it does not exist already. Plus it will run alembic migrations on startup. 
+    
+3B. **(OPTIONAL) Build and run the Docker containers:**:
+Build and start the Docker containers:
+    ```
     docker-compose up --build
     ```
 
@@ -41,16 +48,16 @@ This command will start both the FastAPI application and the PostgreSQL database
 
 ### Running Tests
 To run tests, use:
-    ```bash
+    ```
     poetry run pytest
     ```
 ### Database Migrations
 This project uses Alembic for database migrations. To create a new migration, run:
-    ```bash
+    ```
     poetry run alembic revision --autogenerate -m "Migration message"
     ```
 To apply migrations, use:
-    ```bash
+    ```
     poetry run alembic upgrade head
     ```
 ### Packaging
