@@ -54,3 +54,16 @@ def test_delete_article(client: TestClient, session: Session):
     response = client.get("/api/v1/articles/")
     assert len(response.json()) == 0
 
+# def test_update_article(client: TestClient, session: Session):
+#     article = create_article_in_db(session, ArticleCreate(title="For update: Ta-da blog", content="A quick brown fox lorem ipsums..."))
+#     #Update only the title of the article
+#     update_data = {"title": "NEW FIXED Title"}
+#     response = client.patch(f"/api/v1/articles/{article.id}", json=update_data)
+#     assert response.status_code == 200, f"Unexpected status code: {response.status_code}, response: {response.json()}"
+
+#     # verify changes
+#     updated_article = session.get(Article, article.id)
+#     assert updated_article.title == "NEW FIXED Title"
+#     assert updated_article.content == "A quick brown fox lorem ipsums..."
+#     assert updated_article.meta_description == article.meta_description
+#     assert updated_article.author_name == article.author_name
