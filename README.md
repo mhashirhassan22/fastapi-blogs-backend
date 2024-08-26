@@ -28,11 +28,13 @@ Install dependencies using Poetry:
     poetry install
     ```
     
-3. **Run the Application as a Package:**:
-Build and start the Docker containers:
+3. **Run the Application as a Package:**
+
+Running app as package will automatically create database if it does not exist already. Plus it will run alembic migrations on startup. 
+
     ```poetry run blogs-backend
     ```
-P.s. Running app as package will automatically create database if it does not exist already. Plus it will run alembic migrations on startup. 
+
     
 3B. **(OPTIONAL) Build and run the Docker containers:**:
 Build and start the Docker containers:
@@ -41,6 +43,8 @@ Build and start the Docker containers:
     ```
 
 This command will start both the FastAPI application and the PostgreSQL database.
+
+P.s. See env.example.txt if you are running with poetry. See env.docker.example.txt if running with `docker-compose`
 
 ### Usage
 * The FastAPI application will be available at http://localhost:8000.
