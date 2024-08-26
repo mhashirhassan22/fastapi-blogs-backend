@@ -5,7 +5,7 @@ from datetime import datetime
 class ArticleBase(BaseModel):
     title: str = Field(..., max_length=512)
     content: str
-    author_name: Optional[str] = Field(..., max_length=100)
+    author_name: Optional[str] = Field(None, max_length=100)
     meta_description: Optional[str] = Field(None, max_length=160)
 
 class ArticleCreate(ArticleBase):

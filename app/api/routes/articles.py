@@ -1,6 +1,6 @@
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, status
 from app.schemas.article import ArticlePublic, ArticleCreate
-from app.services.article_service import create_article
+from app.services.article_service import create_article, delete_article_by_id
 from app.deps import SessionDep
 from app.models.article import Article
 from sqlmodel import select
@@ -10,7 +10,8 @@ router = APIRouter()
 
 @router.post("/", response_model=ArticlePublic)
 def create_new_article(article: ArticleCreate, db: SessionDep):
-    existing_article = db.query(Article).filter(Article.title == article.title).first()
+    statement = select(Article).where(Article.title == article.title)
+    existing_article = db.exec(statement).first()
     if existing_article:
         raise HTTPException(status_code=400, detail="Article with this title already exists")
 
@@ -25,3 +26,8 @@ def list_articles(
 ):
     articles = db.exec(select(Article).offset(skip).limit(limit)).all()
     return articles
+
+@router.delete("/{id}/", response_model=None, status_code=status.HTTP_204_NO_CONTENT)
+def delete_article(id: int, db: SessionDep):
+    delete_article_by_id(db=db, id=id)
+    return
