@@ -54,16 +54,29 @@ def test_delete_article(client: TestClient, session: Session):
     response = client.get("/api/v1/articles/")
     assert len(response.json()) == 0
 
-# def test_update_article(client: TestClient, session: Session):
-#     article = create_article_in_db(session, ArticleCreate(title="For update: Ta-da blog", content="A quick brown fox lorem ipsums..."))
-#     #Update only the title of the article
-#     update_data = {"title": "NEW FIXED Title"}
-#     response = client.patch(f"/api/v1/articles/{article.id}", json=update_data)
-#     assert response.status_code == 200, f"Unexpected status code: {response.status_code}, response: {response.json()}"
+def test_update_article(client: TestClient, session: Session):
+    article = create_article_in_db(session, ArticleCreate(title="For update: Ta-da blog", content="A quick brown fox lorem ipsums..."))
+    #Update only the title of the article
+    update_data = {"title": "NEW FIXED Title"}
+    response = client.patch(f"/api/v1/articles/{article.id}", json=update_data)
+    assert response.status_code == 200, f"Unexpected status code: {response.status_code}, response: {response.json()}"
+    # verify changes
+    updated_article = client.get(f"/api/v1/articles/{article.id}").json()
+    assert updated_article["title"] == "NEW FIXED Title"
+    assert updated_article["content"] == "A quick brown fox lorem ipsums..."
+    assert updated_article["meta_description"] == article.meta_description
+    assert updated_article["author_name"] == article.author_name
 
-#     # verify changes
-#     updated_article = session.get(Article, article.id)
-#     assert updated_article.title == "NEW FIXED Title"
-#     assert updated_article.content == "A quick brown fox lorem ipsums..."
-#     assert updated_article.meta_description == article.meta_description
-#     assert updated_article.author_name == article.author_name
+def test_get_article_by_id(client: TestClient, session: Session):
+    created_article = create_article_in_db(session, ArticleCreate(title="get by id: Ta-da blog", content="A quick brown fox lorem ipsums..."))
+    # verify if article exist
+    response = client.get(f"/api/v1/articles/{created_article.id}/")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["id"] == created_article.id
+    assert data["title"] == created_article.title
+    assert data["content"] == created_article.content
+    # Check response if  article does not exist
+    response = client.get("/api/v1/articles/9999/")
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Article not found"}
