@@ -7,7 +7,7 @@ packages = [{ include = "app" }]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 fastapi = "^0.112.2"
 uvicorn = "^0.30.6"
 psycopg2-binary = "^2.9.9"
@@ -28,4 +28,4 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-blogs-backend = "app.main:app"
+blogs-backend = "app.main:run"
