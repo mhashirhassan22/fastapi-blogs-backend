@@ -45,3 +45,16 @@ def test_list_articles(client: TestClient, session: Session):
     assert len(data) == 2
     assert data[0]["title"] == "Article for Ta-da Coinbase"
     assert data[1]["title"] == "Article 2 for Ta-da Binance"
+
+
+def test_delete_article(client: TestClient, session: Session):
+    # Step 1: Create an article to delete
+    article_data = ArticleCreate(title="Test Article", content="Test Content")
+    article = create_article_in_db(session, article_data)
+
+    response = client.delete(f"/api/v1/articles/{article.id}")
+    assert response.status_code == 200
+
+    # Step 3: Check if the article was deleted
+    deleted_article = session.get(Article, article.id)
+    assert deleted_article is None
