@@ -22,5 +22,5 @@ class ArticleInDBBase(ArticleBase):
     class Config:
         from_attributes = True
 
-class Article(ArticleInDBBase):
+class ArticlePublic(ArticleInDBBase):
     pass
