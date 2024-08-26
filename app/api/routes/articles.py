@@ -9,7 +9,7 @@ from typing import List
 router = APIRouter()
 
 @router.post("/", response_model=ArticlePublic)
-def create_new_article(article: ArticleCreate, db: SessionDep):
+def create_article(article: ArticleCreate, db: SessionDep):
     statement = select(Article).where(Article.title == article.title)
     existing_article = db.exec(statement).first()
     if existing_article:
