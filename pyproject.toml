@@ -28,4 +28,4 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-blogs-backend = "app.main:app"
+blogs-backend = "app.main:run"
