@@ -32,8 +32,9 @@ Install dependencies using Poetry:
 
 Running app as package will automatically create database if it does not exist already. Plus it will run alembic migrations on startup. 
 
-    ```poetry run blogs-backend
-    ```
+   
+    poetry run blogs-backend
+  
 
     
 3B. **(OPTIONAL) Build and run the Docker containers:**:
@@ -66,6 +67,6 @@ To apply migrations, use:
     ```
 ### Packaging
 The application is set up to be packaged using Poetry. To build the package, run:
-    ```bash
+    ```
     poetry build
     ```
