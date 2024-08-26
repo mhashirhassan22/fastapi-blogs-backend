@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException, Query, status
-from app.schemas.article import ArticlePublic, ArticleCreate
-from app.services.article_service import create_article, delete_article_by_id
+from app.schemas.article import ArticlePublic, ArticleCreate, ArticleUpdate
+from app.services.article_service import create_article, delete_article_by_id,\
+    update_article_by_id
 from app.deps import SessionDep
 from app.models.article import Article
 from sqlmodel import select
@@ -31,3 +32,16 @@ def list_articles(
 def delete_article(id: int, db: SessionDep):
     delete_article_by_id(db=db, id=id)
     return
+
+@router.patch("/{id}/", response_model=ArticlePublic)
+def update_article(id: int, article_update: ArticleUpdate, db: SessionDep):
+    updated_article = update_article_by_id(db, id, article_update)
+    return updated_article
+
+@router.get("/{id}/", response_model=ArticlePublic)
+def read_article(id: int, db: SessionDep) -> ArticlePublic:
+    statement = select(Article).where(Article.id == id)
+    article = db.exec(statement).first()
+    if not article:
+        raise HTTPException(status_code=404, detail="Article not found")
+    return article

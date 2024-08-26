@@ -12,7 +12,10 @@ class ArticleCreate(ArticleBase):
     pass
 
 class ArticleUpdate(ArticleBase):
-    pass
+    title: Optional[str] = None
+    content: Optional[str] = None
+    author_name: Optional[str] = None
+    meta_description: Optional[str] = None
 
 class ArticleInDBBase(ArticleBase):
     id: int
