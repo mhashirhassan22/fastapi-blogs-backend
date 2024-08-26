@@ -10,7 +10,8 @@ router = APIRouter()
 
 @router.post("/", response_model=ArticlePublic)
 def create_new_article(article: ArticleCreate, db: SessionDep):
-    existing_article = db.query(Article).filter(Article.title == article.title).first()
+    statement = select(Article).where(Article.title == article.title)
+    existing_article = db.exec(statement).first()
     if existing_article:
         raise HTTPException(status_code=400, detail="Article with this title already exists")
 
