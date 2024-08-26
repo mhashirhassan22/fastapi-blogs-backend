@@ -4,12 +4,14 @@ from starlette.middleware.cors import CORSMiddleware
 
 from app.api.main import api_router
 from app.core.config import settings
+from app.middleware.logging import LogRequestMiddleware
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
     description="API for managing blog articles",
     version="1.0.0",
 )
+app.add_middleware(LogRequestMiddleware) # For request logging
 
 # Set all CORS enabled origins
 if settings.BACKEND_CORS_ORIGINS:

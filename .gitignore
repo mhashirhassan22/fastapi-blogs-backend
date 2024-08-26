@@ -46,3 +46,6 @@ coverage.xml
 # Alembic migrations
 alembic/versions/*.pyc
 *.pyc
+
+
+app.log
